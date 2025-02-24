@@ -17,4 +17,16 @@ pipeline {
             }
         }
     }
+
+
+    stages {
+        stage('Build') {
+            steps {
+                script {
+                    echo "Construction de l'image Docker..."
+                    sh "docker build -t python-sum ${DIR_PATH}"
+                }
+            }
+        }
+    }
 }
