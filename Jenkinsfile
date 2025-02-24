@@ -3,9 +3,9 @@ pipeline {
     
     environment {
         CONTAINER_ID = ''  
-        SUM_FILE_PATH = 'C:\\chemin\\vers\\sum.py'  
-        DIR_PATH = 'C:\\chemin\\vers\\le\\repertoire\\contenant\\Dockerfile'  
-        TEST_FILE_PATH = 'C:\\chemin\\vers\\le\\fichier\\test'  
+        SUM_FILE_PATH = 'C:\\Users\\kakeu\\Downloads\\DOCJEN\\sum.py'  
+        DIR_PATH = 'C:\\Users\\kakeu\\Downloads\\DOCJEN'  
+        TEST_FILE_PATH = 'C:\\Users\\kakeu\\Downloads\\DOCJEN\\test'  
     }
 
     stages {
