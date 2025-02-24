@@ -1,11 +1,11 @@
 pipeline {
-    agent any  // Exécute le pipeline sur n'importe quel agent disponible
+    agent any
     
     environment {
-        CONTAINER_ID = ''  // Stocke l'ID du conteneur Docker exécuté
-        SUM_FILE_PATH = '/chemin/vers/sum.py'  // Chemin vers sum.py sur la machine locale
-        DIR_PATH = '/chemin/vers/le/repertoire/contenant/Dockerfile'  // Chemin du répertoire avec le Dockerfile
-        TEST_FILE_PATH = '/chemin/vers/le/fichier/test'  // Chemin vers le fichier test
+        CONTAINER_ID = ''  
+        SUM_FILE_PATH = 'C:\\chemin\\vers\\sum.py'  
+        DIR_PATH = 'C:\\chemin\\vers\\le\\repertoire\\contenant\\Dockerfile'  
+        TEST_FILE_PATH = 'C:\\chemin\\vers\\le\\fichier\\test'  
     }
 
     stages {
@@ -21,7 +21,7 @@ pipeline {
             steps {
                 script {
                     echo "Construction de l'image Docker..."
-                    sh "docker build -t python-sum ${DIR_PATH}"
+                    bat "docker build -t python-sum %DIR_PATH%"
                 }
             }
         }
