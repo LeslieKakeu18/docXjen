@@ -4,7 +4,8 @@ FROM python:3.13.0-alpine3.20
 WORKDIR /app
 
 # Copier le script dans le conteneur
-COPY sum.py /app/
+COPY sum.py /app/sum.py
 
 # Garder le conteneur actif après le démarrage
 CMD ["tail", "-f", "/dev/null"]
+
