@@ -56,7 +56,8 @@ pipeline {
                 echo "Test avec ${arg1} + ${arg2}, somme attendue : ${expectedSum}"
 
                 // Exécution du script dans le conteneur Docker
-                def output = bat(script: "docker exec ${CONTAINER_ID} python /sum.py ${arg1} ${arg2}", returnStdout: true).trim()
+                def output = bat(script: "docker exec ${CONTAINER_ID} python3 /app/sum.py ${arg1} ${arg2}", returnStdout: true).trim()
+
                 
                 // Affichage de la sortie pour débogage
                 echo "Sortie brute de sum.py : ${output}"
