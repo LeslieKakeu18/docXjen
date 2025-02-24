@@ -25,5 +25,15 @@ pipeline {
                 }
             }
         }
+
+        stage('Run') {
+            steps {
+                script {
+                    echo "Exécution du conteneur Docker..."
+                    CONTAINER_ID = sh(script: "docker run -d python-sum tail -f /dev/null", returnStdout: true).trim()
+                    echo "Conteneur démarré avec l'ID: ${CONTAINER_ID}"
+                }
+            }
+        }
     }
 }
