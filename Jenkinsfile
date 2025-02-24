@@ -38,31 +38,36 @@ pipeline {
             }
         }
 
-        stage('Test') {
-            steps {
-                script {
-                     echo "Début des tests..."
+       stage('Test') {
+    steps {
+        script {
+            echo "Début des tests..."
+            
+            // Lecture et nettoyage du fichier de test
+            def testLines = readFile(TEST_FILE_PATH).trim().split('\n')
 
-                    // Lecture du fichier de test
-                    def testLines = readFile(TEST_FILE_PATH).split('\n')
+            for (line in testLines) {
+                def vars = line.split(' ')
+                def arg1 = vars[0]
+                def arg2 = vars[1]
+                def expectedSum = vars[2].toFloat()
 
-                    for (line in testLines) {
-                    def vars = line.split(' ')
-                    def arg1 = vars[0]
-                    def arg2 = vars[1]
-                    def expectedSum = vars[2].toFloat()
+                // Vérification des valeurs lues
+                echo "Test avec ${arg1} + ${arg2}, somme attendue : ${expectedSum}"
 
-                    // Exécution du script Python dans le conteneur Docker
-                    def output = bat(script: "docker exec ${CONTAINER_ID} python /app/sum.py ${arg1} ${arg2}", returnStdout: true)
+                // Exécution du script dans le conteneur Docker
+                def output = bat(script: "docker exec ${CONTAINER_ID} python /sum.py ${arg1} ${arg2}", returnStdout: true).trim()
+                
+                // Affichage de la sortie pour débogage
+                echo "Sortie brute de sum.py : ${output}"
 
+                // Extraction du dernier élément
+                def result = output.split('\n')[-1].trim().toFloat()
 
-                    // Extraction et conversion du résultat
-                    def result = output.split('\n')[-1].trim().toFloat()
-
-                    // Comparaison avec la somme attendue
-                    if (result == expectedSum) {
+                // Vérification du résultat
+                if (result == expectedSum) {
                     echo "Test réussi : ${arg1} + ${arg2} = ${result}"
-                    } else {
+                } else {
                     error "Échec du test : ${arg1} + ${arg2} attendu ${expectedSum} mais obtenu ${result}"
                 }
             }
@@ -70,5 +75,8 @@ pipeline {
     }
 }
 
-    }
 }
+}
+      
+
+        
